@@ -6,7 +6,7 @@
         xmlns:dxc="clr-namespace:SharpDX.WPF;assembly=SharpDX.WPF"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Title="MainWindow" Height="279" Width="525">
+        Title="MainWindow" Height="540.242" Width="529.279">
     <Grid Margin="0,0,0.4,-1">
         <Button Content="SelectPath" HorizontalAlignment="Left" Margin="54,196,0,0" VerticalAlignment="Top" Width="180" Height="33" Click="Button_Click_1"/>
         <Button Content="Play/Stop" HorizontalAlignment="Left" Margin="276,196,0,0" VerticalAlignment="Top" Width="180" Height="33" Click="Button_Click"/>
@@ -16,5 +16,6 @@
         <Label Name="Time" Content="00:00" HorizontalAlignment="Left" Margin="54,113,0,0" VerticalAlignment="Top"/>
         <Label Name="Lb" Content="Label" HorizontalAlignment="Left" Margin="154,10,0,0" VerticalAlignment="Top" Width="146"/>
         <Slider x:Name="TimeS1"  HorizontalAlignment="Left" Margin="54,31,0,0" VerticalAlignment="Top" Width="402" IsMoveToPointEnabled="True" />
+        <Rectangle Name="Rect" Fill="#FFFFFF" HorizontalAlignment="Left" Height="218" Margin="57,258,0,0" Stroke="White" VerticalAlignment="Top" Width="399"/>
     </Grid>
 </Window>

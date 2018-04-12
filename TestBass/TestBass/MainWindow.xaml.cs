@@ -37,7 +37,7 @@ namespace TestBass
         {
             Interval = 500
         };
-        System.Timers.Timer FFTtimer = new System.Timers.Timer(50);
+        System.Timers.Timer FFTtimer = new System.Timers.Timer(20);
         string CurrentMusicPath;
         IntPtr hwnd;
         bool playing = false;
@@ -169,13 +169,29 @@ namespace TestBass
                 float[] data = new float[256];
                 GCHandle hGC = GCHandle.Alloc(data, GCHandleType.Pinned);
                 length = Bass.BASS_ChannelGetData(stream, hGC.AddrOfPinnedObject(), (int)BASSData.BASS_DATA_FFT256);
-                float fres = data[(int)(length * 50 / 44100)];
+                int level = (Bass.BASS_ChannelGetLevel(stream) >> 16) & 0x0000FFFF;
+
+                float fres = data[(int)(length * 200 / 44100)] + data[(int)(length * 150 / 44100)] + data[(int)(length * 100 / 44100)];
+                fres /= 3;
                 hGC.Free();
                 Lb.Content = fres.ToString();
                 //if (fres > oldvalue) oldvalue = fres;
                 //Lb.Content = oldvalue.ToString();
-                if(!float.IsNaN(fres))
-                    TimeS1.Value = Math.Abs(fres)*10;
+                if (!float.IsNaN(fres))
+                {
+                    TimeS1.Value = Math.Abs((double)level / 32768.0) * 10;
+                    double red = (fres * 255) * 3;
+                    Color color = new Color()
+                    {
+                        R = (Byte)(255 - red),
+                        G = (Byte)(255 - red),
+                        B = (Byte)(255 - red),
+                        A = 255
+                    };
+                    Rect.Fill = new System.Windows.Media.SolidColorBrush(color);
+                    
+                }
+
             }
         }
 
