@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="GeoContext.hpp" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Shapes.h" />
   </ItemGroup>

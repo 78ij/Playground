@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <set>
 #include <iostream>
+#include <typeinfo>
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -25,7 +26,6 @@ namespace GeoDraw {
 	using		std::list;
 	using		std::set;
 	using		std::sort;
-
 } // namespace GeoDraw
 
 #endif // BASE_H

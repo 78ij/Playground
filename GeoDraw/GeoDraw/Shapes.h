@@ -15,10 +15,10 @@ namespace GeoDraw {
 		vector2 setposition(vector2 newposition) { position = newposition; }
 		vector2 getorientation() const { return orientation; }
 		vector2 setorientation(vector2 neworientation) { orientation = neworientation; }
-		AABB getAABB() { return aabb; }
+		AABB getAABB() const { return aabb; }
 		vector2 translate(vector2 offset);
-		vector2 rotate(float angle);
-	private:
+		virtual vector2 rotate(float angle);
+	protected:
 		AABB aabb;
 		// the left top point of the AABB box
 		vector2 position;
@@ -37,21 +37,33 @@ namespace GeoDraw {
 		int size;
 	};
 
-	class Line : Shapes {
+	class Line : public Shapes {
 	public:
 		Line() {}
-		Line(const Line &other) : start(other.start), end(other.end),thickness(other.thickness) {}
+		Line(const Line &other) : start(other.start), end(other.end),thickness(other.thickness) {
+			aabb = other.aabb;
+		}
+		Line(vector2 _start, vector2 _end,float _thickness = 2) {
+			start = _start;
+			end = _end;
+			aabb = AABB(_start, _end);
+			thickness = _thickness;
+		}
 		Line &operator=(const Line &other) {
 			start = other.start;
 			end = other.end;
+			aabb = other.aabb;
 			return *this;
 		}
+		vector2 getstart() const { return start; }
+		vector2 getend() const { return end; }
+		float getthickness() const { return thickness; }
 	private:
 		/*The points of the line *relative to* the origin of the shape, 
 		a.k.a the left top point of the AABB box *in its own space*. */
 		vector2 start; 
 		vector2 end;
-		int thickness;
+		float thickness;
 	};
 
 
