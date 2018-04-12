@@ -8,12 +8,12 @@ namespace GeoDraw {
 
 	class Geocontext {
 	public:
-		Geocontext() :LineDraw(nullptr), PointDraw(nullptr), AABBDraw(nullptr) {}
+		Geocontext() :LineDraw(nullptr), PointDraw(nullptr) {}
 		void(*LineDraw)(const Line &line);
 		void(*PointDraw)(const Point &point);
-		void(*AABBDraw)(const AABB &aabb);
 		void Draw();
 		void AddLine(vector2 start, vector2 end);
+		void SetAABBDrawFunc(void(*aabbdraw)(const AABB &)) { quadtree.AABBDraw = aabbdraw; }
 		~Geocontext() {
 			for (Shapes *shape : shapes) {
 				delete shape;
@@ -28,7 +28,7 @@ namespace GeoDraw {
 	void Geocontext::AddLine(vector2 start,vector2 end) {
 		Line *line = new Line(start, end);
 		shapes.insert(static_cast<Shapes *>(line));
-		quadtree.insert(&line->getAABB());
+		quadtree.insert(new AABB(line->getAABB()));
 	}
 
 	void Geocontext::Draw() {
@@ -39,10 +39,8 @@ namespace GeoDraw {
 			if (typeid (*shape) == typeid(Point)) {
 				PointDraw(*dynamic_cast<Point *>(shape));
 			}
-			if (typeid (*shape) == typeid(AABB)) {
-				AABBDraw(*dynamic_cast<AABB *>(shape));
-			}
 		}
+		quadtree.print();
 	}
 
 

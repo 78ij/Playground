@@ -67,10 +67,13 @@ namespace GeoDraw {
 
 	void QuadTree::printtree(QuadTreeNode *node,int depth) {
 		if (node == nullptr) return;
+		AABBDraw(node->aabb);
 		if (node->isleaf) {
 			for (auto aabb : node->containlist) {
 				std::cout << "left: " << aabb->getleft() << "top: " << aabb->gettop()
-					<< "width :" << aabb->getwidth() << "height :" << aabb->getheight() << " depth:" << depth << std::endl;
+					<< "width :" << aabb->getwidth() << "height :" <<
+					aabb->getheight() << " depth:" << depth << std::endl;
+				AABBDraw(*aabb);
 			}
 		}
 		else {
